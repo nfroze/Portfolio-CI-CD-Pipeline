@@ -12,6 +12,8 @@ This approach eliminates the operational overhead of traditional web servers whi
 
 ## Architecture
 
+![Cloud Architecture](screenshots/cloud-architecture.png)
+
 Requests flow through the system as follows: users access the custom domain via Route 53, which routes to CloudFront. CloudFront serves cached content from edge locations worldwide, falling back to the S3 origin when cache misses occur. The CI/CD pipeline operates independently — on each push, GitHub Actions uploads changed files to S3 and triggers a cache invalidation to propagate updates globally.
 
 The Terraform configuration manages the S3 bucket with website hosting enabled, CloudFront distribution with custom SSL certificate, and Route 53 hosted zone with A and AAAA alias records pointing to CloudFront.
